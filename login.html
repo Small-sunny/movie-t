@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="智能,点播影院,可视化运营,服务平台" />
+    <meta name="description" content="新一代智能点播影院可视化运营服务平台" />
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>login</title>
+
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.js"></script>
+
+    <style>
+        #sRand{
+            margin-left: 15px;
+            padding: 8px;
+            width:180px;
+        }
+        #login1{
+            font-size: 22px;
+            margin-top: 0;
+        }
+        #login1 span{
+            font-size: 20px;
+        }
+        .login-body{
+            background: #021841 url(img/bj1.jpg) no-repeat fixed;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="login-body" onkeydown="keyLogin();">
+    <div class="htmleaf-container">
+        <div class="wrapper">
+            <div class="container">
+                <h1>智能点播影院可视化运营服务平台</h1>
+                <form id="form" class="form" action="index.html">
+                    <input id="userName" type="text" name="userName" class="form-control" placeholder="用户名" autofocus>
+                    <input id="passwd" type="password" name="passwd" class="form-control" placeholder="密码">
+
+                    <!--<div class="row">
+                        <input id="sRand" type="text" class="col-md-8" placeholder="验证码" width="60%">
+                        <img class="col-md-4" align="middle" id="code" src="img/border_coner_bl.png" onClick="this.src='image.jsp?' + new Date().getTime();"/>
+                    </div>-->
+
+                    <button id="login1" class="btn btn-lg btn-login btn-block" type="button" onclick="login();">
+                        <!--<i class="fa fa-check"></i>-->
+                        <span>登录</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    function keyLogin(){
+        if (event.keyCode==13)  //回车键的键值为13
+            $("#login1").click(); //调用登录按钮的登录事件
+    }
+    var jsessionid='';
+    function login(){
+        var uName = $("#userName").val();
+        var pwd = $("#passwd").val();
+        //var sRand=$('#sRand').val();//验证码
+        if(uName == ""){
+            alert("用户名不能为空！");
+            return;
+        }
+        if(pwd == ""){
+            alert("密码不能为空！");
+            return;
+        }
+        console.log('开始登录...');
+        $.post("http://192.168.0.217:6677//web/user/login?userName="+uName+"&passwd="+pwd,null,function(result){
+            var result = eval('('+result+')');
+            console.log(result);
+            if(result.code == 0){
+                jsessionid=result.data;
+                alert(jsessionid);
+                window.location="index.html?userName="+uName+";jsessionid="+jsessionid;
+            }else{
+                alert("登录失败！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

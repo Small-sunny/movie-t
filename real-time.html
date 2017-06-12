@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时状态</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style-m1.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        .col-md-6{
+
+        }
+        .col-md-6>h3{
+            display: inline;
+        }
+        .right{
+            text-align: right;
+            height:56px;
+            line-height: 56px;
+        }
+        .right>a.btn-link{
+            color: #fff;
+            margin-right: 0;
+
+        }
+        hr{
+            margin-top: 0;
+        }
+        select{
+            color:#333;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 class="main-title">
+        新一代智能点播影院可视化运营服务平台
+    </h1>
+    <div class="container">
+        <div class="row nav">
+            <div class="col-md-6">
+                <h3>实时状态：</h3>
+                <select name="area" id="area">
+                    <option value="">全部地区</option>
+                    <option value="">北京</option>
+                    <option value="">上海</option>
+                </select>
+                <select name="cinema" id="cinema">
+                    <option value="">全部类型</option>
+                    <option value="">商业类</option>
+                    <option value="">公益类</option>
+                </select>
+                <select name="movie" id="movie">
+                    <option value="">所有院线</option>
+                    <option value="">全球播</option>
+                    <option value="">欢乐影盟</option>
+                </select>
+            </div>
+            <div class="col-md-6 right">
+                <a href="index.html" class="btn btn-link">返回&gt;&gt;</a>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>影厅序列号</th>
+                        <th>所属影城</th>
+                        <th>所属院线</th>
+                        <th>详细地址</th>
+                        <th>在线状态</th>
+                        <th>播放状态</th>
+                        <th>播放详情</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A01</td>
+                        <td>西乡店1号厅</td>
+                        <td>定军山</td>
+                        <td>深圳 宝安 西乡</td>
+                        <td>在线</td>
+                        <td>正在播放</td>
+                        <td>《长城》</td>
+                    </tr>
+                    <tr>
+                        <td>A02</td>
+                        <td>西乡店1号厅</td>
+                        <td>定军山</td>
+                        <td>深圳 宝安 西乡</td>
+                        <td>在线</td>
+                        <td>正在播放</td>
+                        <td>《长城》</td>
+                    </tr>
+                    <tr>
+                        <td>A03</td>
+                        <td>西乡店1号厅</td>
+                        <td>定军山</td>
+                        <td>深圳 宝安 西乡</td>
+                        <td>在线</td>
+                        <td>正在播放</td>
+                        <td>《长城》</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/echarts.js"></script>
+<script src="js/china.js"></script>
+
+<script src="js/baiduTemplate.js"></script>
+<script id="t4:table" type="text/html">
+    <@ for(var i=0;i< data.length ;i++){@>
+    <div class="tagContent" id="tagContent<@=i@>">
+        <ul>
+            <li class="clearfix">
+                <span class="fl">TOP 10</span>
+                <span class="fl tRight">近七日播放</span>
+                <span class="fr tRight">累计播放</span>
+            </li>
+
+            <@ for(var j=0;j< data[i].rank.length ;j++){@>
+            <li class="clearfix">
+                <span class="fl"><@=j+1@>&nbsp;&nbsp;<@=data[i].rank[j].movieName@></span>
+                <span class="fl tRight"><@=data[i].rank[j].sevenDaysCounts@></span>
+                <span class="fr tRight"><@=data[i].rank[j].totalCounts@></span>
+            </li>
+            <@}@>
+        </ul>
+    </div>
+    <@}@>
+</script>
+</body>
+</html>

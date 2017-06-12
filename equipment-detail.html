@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>银幕分类</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style-m1.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        .pic{
+            width:100%;
+            height:500px;
+            margin: auto;
+        }
+        .demo--label{
+            margin:20px 20px 0 0;
+            display:inline-block;
+        }
+        .demo--radio{
+            display:none;
+        }
+        .demo--radioInput{
+            background-color:#fff;
+            border:1px solid rgba(0,0,0,0.15);
+            border-radius:100%;
+            display:inline-block;
+            height:16px;
+            margin-right:10px;
+            margin-top:-1px;
+            vertical-align:middle;
+            width:16px;
+            line-height:1;
+        }
+        .demo--radio:checked + .demo--radioInput:after{
+            background-color:#90F536;
+            border-radius:100%;
+            content:"";
+            display:inline-block;
+            height:10px;
+            margin:2px;
+            width:10px;
+        }
+        .col-md-6{
+
+        }
+        .col-md-6>h3{
+            display: inline;
+        }
+        .right{
+            text-align: right;
+            height:56px;
+            line-height: 56px;
+        }
+        .right>a.btn-link{
+            color: #fff;
+            margin-right: 0;
+
+        }
+        hr{
+            margin-top: 0;
+        }
+        .col-md-4{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .box{
+            padding: 10px;
+            height:260px;
+            padding-left: 15px;
+        }
+        .title{
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 class="main-title">
+        新一代智能点播影院可视化运营服务平台
+    </h1>
+    <div class="container">
+        <div class="row nav">
+            <div class="col-md-6">
+                <h3>影厅设备明细：</h3>
+            </div>
+            <div class="col-md-6 right">
+                <a href="index.html" class="btn btn-link">返回&gt;&gt;</a>
+            </div>
+
+        </div>
+        <hr>
+        <div class="title">
+            <span>欢乐影盟第八天影院臣田店 1号厅</span>
+            <p>入网时间：<span>2017年1月1日</span></p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="box">
+                    <li><h4>播放服务器</h4></li>
+                    <li>型号:<span>DJ100</span></li>
+                    <li>设备厂商:<span>定军山</span></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="box">
+                    <li><h4>放映服务器</h4></li>
+                    <li>型号:<span>323H+</span></li>
+                    <li>设备厂商:<span>NEC</span></li>
+                    <li>灯泡剩余:<span>500小时</span></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="box">
+                    <li><h4>音响</h4></li>
+                    <li>型号:<span>DP600</span></li>
+                    <li>设备厂商:<span>广州飞达</span></li>
+                    <li>功率:<span>500W</span></li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <ul>
+                <li>影城联系方式：<span>张三 13870011159</span></li>
+                <li>影院详细地址：<span>深圳市宝安区西乡街道臣田工业区36栋</span></li>
+            </ul>
+        </footer>
+    </div>
+
+</div>
+<script src="js/echarts.js"></script>
+<script src="js/china.js"></script>
+
+<script src="js/baiduTemplate.js"></script>
+<script id="t4:table" type="text/html">
+    <@ for(var i=0;i< data.length ;i++){@>
+    <div class="tagContent" id="tagContent<@=i@>">
+        <ul>
+            <li class="clearfix">
+                <span class="fl">TOP 10</span>
+                <span class="fl tRight">近七日播放</span>
+                <span class="fr tRight">累计播放</span>
+            </li>
+
+            <@ for(var j=0;j< data[i].rank.length ;j++){@>
+            <li class="clearfix">
+                <span class="fl"><@=j+1@>&nbsp;&nbsp;<@=data[i].rank[j].movieName@></span>
+                <span class="fl tRight"><@=data[i].rank[j].sevenDaysCounts@></span>
+                <span class="fr tRight"><@=data[i].rank[j].totalCounts@></span>
+            </li>
+            <@}@>
+        </ul>
+    </div>
+    <@}@>
+</script>
+</body>
+</html>

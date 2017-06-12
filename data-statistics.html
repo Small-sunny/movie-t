@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style-m1.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        .pic{
+            width:100%;
+            height:500px;
+            margin: auto;
+        }
+        .demo--label{
+            margin:20px 20px 0 0;
+            display:inline-block;
+        }
+        .demo--radio{
+            display:none;
+        }
+        .demo--radioInput{
+            background-color:#fff;
+            border:1px solid rgba(0,0,0,0.15);
+            border-radius:100%;
+            display:inline-block;
+            height:16px;
+            margin-right:10px;
+            margin-top:-1px;
+            vertical-align:middle;
+            width:16px;
+            line-height:1;
+        }
+        .demo--radio:checked + .demo--radioInput:after{
+            background-color:#90F536;
+            border-radius:100%;
+            content:"";
+            display:inline-block;
+            height:10px;
+            margin:2px;
+            width:10px;
+        }
+        .col-md-6{
+
+        }
+        .col-md-6>h3{
+            display: inline;
+        }
+        .right{
+            text-align: right;
+            height:56px;
+            line-height: 56px;
+        }
+        .right>a.btn-link{
+            color: #fff;
+            margin-right: 0;
+
+        }
+        hr{
+            margin-top: 0;
+        }
+        #charts{
+            box-shadow: 0 0 10px rgba(71,169,252,1) inset;
+            background: rgba(255,255,255,.1);
+            border-radius: 2px;
+            padding:15px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 class="main-title">
+        新一代智能点播影院可视化运营服务平台
+    </h1>
+    <div class="container">
+        <div class="row nav">
+            <div class="col-md-6">
+                <h3>数据统计：</h3>
+                <label class="demo--label">
+                    <input class="demo--radio" id="year" name="times" type="radio">
+                    <span class="demo--radioInput"></span>年
+                </label>
+                <label class="demo--label">
+                    <input class="demo--radio" id="month" name="times" type="radio">
+                    <span class="demo--radioInput"></span>月
+                </label>
+                <label class="demo--label">
+                    <input class="demo--radio" id="week" name="times" type="radio">
+                    <span class="demo--radioInput"></span>周
+                </label>
+                <label class="demo--label">
+                    <input class="demo--radio" id="day" name="times" type="radio">
+                    <span class="demo--radioInput"></span>日
+                </label>
+            </div>
+            <div class="col-md-6 right">
+                <a href="index.html" class="btn btn-link">返回&gt;&gt;</a>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row" id="charts">
+            <div class="col-md-4">
+                <div id="num-time" class="pic"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="num-box" class="pic"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="num-movie" class="pic"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/echarts.js"></script>
+<script src="js/china.js"></script>
+
+<script src="js/baiduTemplate.js"></script>
+<script id="t4:table" type="text/html">
+    <@ for(var i=0;i< data.length ;i++){@>
+    <div class="tagContent" id="tagContent<@=i@>">
+        <ul>
+            <li class="clearfix">
+                <span class="fl">TOP 10</span>
+                <span class="fl tRight">近七日播放</span>
+                <span class="fr tRight">累计播放</span>
+            </li>
+
+            <@ for(var j=0;j< data[i].rank.length ;j++){@>
+            <li class="clearfix">
+                <span class="fl"><@=j+1@>&nbsp;&nbsp;<@=data[i].rank[j].movieName@></span>
+                <span class="fl tRight"><@=data[i].rank[j].sevenDaysCounts@></span>
+                <span class="fr tRight"><@=data[i].rank[j].totalCounts@></span>
+            </li>
+            <@}@>
+        </ul>
+    </div>
+    <@}@>
+</script>
+
+<script>
+    var option = {
+        title:{
+            text:'新增荧幕',
+            textStyle:{
+                color:'#fff'
+            },
+
+            subtext:'单位：个',
+            subtextStyle:{
+                color:'#fff'
+            }
+            /*textAlign:'center'*/
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data:['新增荧幕'],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : {
+            type : 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            nameTextStyle: {
+                color: 'white' // x坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        yAxis :{
+            nameTextStyle: {
+                color: 'white' // y坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        series : {
+            name:'新增荧幕',
+            type:'bar',
+            stack: '荧幕',
+            itemStyle : {
+                normal : {
+                    color:'#D95B5B',
+                    lineStyle:{
+                        color:'#D95B5B'
+                    }
+                }
+            },
+            barWidth:20,
+            data:[220, 182, 191, 234, 290, 330, 310]
+        }
+
+    };
+    var myChart = echarts.init(document.getElementById('num-time'));
+    myChart.setOption(option);
+
+    var option1 = {
+        title:{
+            text:'新供应影片',
+            textStyle:{
+                color:'#fff'
+            },
+            subtext:'单位：部',
+            subtextStyle:{
+                color:'#fff'
+            }
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data:['新供应影片'],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : {
+            type : 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            nameTextStyle: {
+                color: 'white' // x坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        yAxis :{
+            nameTextStyle: {
+                color: 'white' // y坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        series : {
+            name:'新供应影片',
+            type:'bar',
+            stack: '影片',
+            itemStyle : {
+                normal : {
+                    color:'#F2CF61',
+                    lineStyle:{
+                        color:'#F2CF61'
+                    }
+                }
+            },
+            barWidth:20,
+            data:[500,600, 702, 604, 881, 890,902]
+        }
+    };
+    var myChart1 = echarts.init(document.getElementById('num-box'));
+    myChart1.setOption(option1);
+
+    var option2 = {
+        title:{
+            text:'新增票房',
+            textStyle:{
+                color:'#fff'
+            },
+            subtext:'单位：万元',
+            subtextStyle:{
+                color:'#fff'
+            }
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data:['新增票房'],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : {
+            type : 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            nameTextStyle: {
+                color: 'white' // x坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        yAxis :{
+            nameTextStyle: {
+                color: 'white' // y坐标轴名称文字样式
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'white' //坐标轴线颜色
+                }
+            }
+        },
+        series : {
+                name:'新增票房',
+                type:'bar',
+                stack: '票房',
+                itemStyle : {
+                    normal : {
+                        color:'#51D9B5',
+                        lineStyle:{
+                            color:'#51D9B5'
+                        }
+                    }
+                },
+                barWidth:20,
+                data:[500,600, 702, 604, 881, 890,902]
+            }
+
+    };
+    var myChart2 = echarts.init(document.getElementById('num-movie'));
+    myChart2.setOption(option2);
+</script>
+</body>
+</html>
